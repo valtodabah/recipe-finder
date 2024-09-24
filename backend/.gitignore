@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+recipes.json
+RAW_recipes.csv
+test_recipes.json
+meilisearch.exe
+*.mdb
