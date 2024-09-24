@@ -11,12 +11,14 @@ function App() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchMade, setSearchMade] = useState(false);
+  const [loading, setLoading] = useState(false);
   const recipesPerPage = 6;
 
-  const handleSearch = (query) => {
+  const handleSearch = async (query) => {
+    setLoading(true);
     setSearchMade(true);
     setError(null);
-    axios.get('https://recipe-finder-v6ta.onrender.com/search', {
+    await axios.get('https://recipe-finder-v6ta.onrender.com/search', {
       params: {
         q: query
       }
@@ -24,10 +26,12 @@ function App() {
     .then(response => {
       setRecipes(response.data.hits);
       setCurrentPage(1);
+      setLoading(false);
     })
     .catch(error => {
       console.error('Error fetching recipes: ', error);
       setError('An error occurred while fetching recipes. Please try again later.');
+      setLoading(false);
     });
   };
 
@@ -49,7 +53,10 @@ function App() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-        {searchMade && recipes.length === 0 && !error && (
+        {loading && (
+          <p className="text-center text-lg text-gray-500">Loading...</p>
+        )}
+        {searchMade && recipes.length === 0 && !error && !loading && (
           <p className="text-center text-lg text-gray-500">No recipes found. Please try searching for something else.</p>
         )}
         {recipes.length > 0 && (
