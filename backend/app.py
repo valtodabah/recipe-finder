@@ -34,4 +34,8 @@ def search():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Get the port from the environment variable or default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Run the app on 0.0.0.0 so it's accessible from outside the container
+    app.run(host='0.0.0.0', port=port)
