@@ -1,10 +1,17 @@
 import meilisearch
 import json
 import math
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def index_data():
+    meilisearch_url = os.getenv('MEILISEARCH_URL')
+    meilisearch_key = os.getenv('MEILI_MASTER_KEY')
+
     # Connect to MeiliSearch
-    client = meilisearch.Client('http://localhost:7700', 'A795E44A911AD2D8BEBA199345858')
+    client = meilisearch.Client(meilisearch_url, meilisearch_key)
     index = client.index('recipes')
 
     # Read data
