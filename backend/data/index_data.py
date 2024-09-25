@@ -49,5 +49,14 @@ def index_data():
     task = index.update_filterable_attributes(['tags', 'cooking_time'])
     print(f"Filterable attributes updated with task UID: {task.task_uid}")
 
+    task = index.update_typo_tolerance({
+        'enabled': True,
+        'minWordSizeForTypos': {
+            'oneTypo': 4,
+            'twoTypos': 8
+        }
+    })
+    print(f"Typo tolerance updated with task UID: {task.task_uid}")
+
 if __name__ == '__main__':
     index_data()
