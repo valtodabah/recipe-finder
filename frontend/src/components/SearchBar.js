@@ -5,10 +5,11 @@ import { Input } from '../ui/input';
 
 function SearchBar({ onSearch }) {
     const [query, setQuery] = useState('');
+    const [cookingTime, setCookingTime] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSearch(query);
+        onSearch(query, cookingTime);
     };
 
     return (
@@ -18,6 +19,12 @@ function SearchBar({ onSearch }) {
             placeholder="Search for recipes..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+          />
+          <Input
+            type="number"
+            placeholder="Max cooking time (minutes)"
+            value={cookingTime}
+            onChange={(e) => setCookingTime(e.target.value)}
           />
           <Button type="submit">
             <Search className="h-4 w-4" />

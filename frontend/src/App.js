@@ -14,13 +14,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const recipesPerPage = 6;
 
-  const handleSearch = async (query) => {
+  const handleSearch = async (query, cookingTime) => {
     setLoading(true);
     setSearchMade(true);
     setError(null);
     await axios.get('https://recipe-finder-v6ta.onrender.com/search', {
       params: {
-        q: query
+        q: query,
+        cooking_time: cookingTime
       }
     })
     .then(response => {

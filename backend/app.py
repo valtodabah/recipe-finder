@@ -18,20 +18,30 @@ index = client.index('recipes')
 @app.route('/search', methods=['GET'])
 def search():
     query = request.args.get('q', '')
-    filters = request.args.get('filters', '')
+    filters = []
+    cooking_time = request.args.get('cooking_time')
     page = int(request.args.get('page', 1))
     hits_per_page = int(request.args.get('limit', 20))
     offset = (page - 1) * hits_per_page
 
+    if cooking_time:
+        filters.append(f'cooking_time<={cooking_time}')
+
+    filters_string = " AND ".join(filters)
     search_params = {
-        'filter': filters,
+        'filter': filters_string,
         'limit': hits_per_page,
         'offset': offset
     }
 
     result = index.search(query, search_params)
 
-    return jsonify(result)
+    response = {
+        'hits': result['hits'],
+        'total': result['estimatedTotalHits'], # total number of matching recipes
+    }
+
+    return jsonify(response)
 
 if __name__ == '__main__':
     # Get the port from the environment variable or default to 5000
@@ -39,3 +49,5 @@ if __name__ == '__main__':
     
     # Run the app on 0.0.0.0 so it's accessible from outside the container
     app.run(host='0.0.0.0', port=port)
+
+    # app.run(debug=True)
