@@ -7,11 +7,13 @@ function RecipeList({ recipes, currentPage, recipesPerPage }) {
     const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {currentRecipes.map((recipe) => (
-            <RecipeCard key={recipe.id} recipe={recipe} />
-          ))}
-        </div>
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+        {currentRecipes.map((recipe) => (
+          <div key={recipe.id} className="break-inside-avoid">
+            <RecipeCard recipe={recipe} />
+          </div>
+        ))}
+      </div>
       );
 }
 
