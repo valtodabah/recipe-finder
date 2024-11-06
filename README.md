@@ -6,4 +6,5 @@ Technologies used:
   Search Engine: Meilisearch
   Frontend: React.js
 
-Vercel link (the first search may take a minute due to free-tier backend hosting): https://recipe-finder-lac-six.vercel.app/
+Vercel link: https://recipe-finder-lac-six.vercel.app/
+The first search will take a minute due to free-tier backend hosting and WILL send an error due to Meilisearch hosting sleeping when the backend calls it, so please search again after the error and everything should work fine.
